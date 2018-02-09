@@ -90,7 +90,7 @@ public class PageFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         Log.d("fragment", "page" + (startOffset / ITEMS_PER_PAGE) + " onCreateView()");
         viewValid = false;
-        return inflater.inflate(R.layout.vert_3items_fragment, container, false);
+        return inflater.inflate(R.layout.items_fragment, container, false);
     }
 
     @Override
