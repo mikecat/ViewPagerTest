@@ -25,9 +25,8 @@ public class MainActivity extends AppCompatActivity {
             itemList.add("item " + i);
         }
 
-        FragmentManager manager = getSupportFragmentManager();
         final ViewPager vp = (ViewPager)findViewById(R.id.viewPager);
-        final MyPagerAdapter adapter = new MyPagerAdapter(manager);
+        final MyPagerAdapter adapter = new MyPagerAdapter(this);
         adapter.setItemList(itemList);
         vp.setAdapter(adapter);
 
