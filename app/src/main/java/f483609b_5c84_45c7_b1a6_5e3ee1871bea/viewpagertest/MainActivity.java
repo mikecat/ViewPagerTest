@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, R.string.oor_pos, Toast.LENGTH_SHORT).show();
                     }
                 }
+                adapter.setItemList(itemList);
                 adapter.notifyDataSetChanged();
             }
         });
