@@ -9,8 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PageFragment extends Fragment {
+    private final static List<MyPagerAdapter> adapters = new ArrayList<>();
+    public static int registerAdapter(MyPagerAdapter adapter) {
+        int index = adapters.size();
+        adapters.add(adapter);
+        return index;
+    }
+
     private final static String START_OFFSET = "start_offset";
+    private final static String ADAPTER_ID = "adapter_id";
     private final static int[] itemDisplayIDs = {
         R.id.textView1, R.id.textView2, R.id.textView3
     };
@@ -29,10 +40,6 @@ public class PageFragment extends Fragment {
             dataValid = false;
             if (isShown) displayData();
         }
-    }
-
-    private Observer newObserver() {
-        return new Observer();
     }
 
     private void displayData() {
@@ -57,23 +64,24 @@ public class PageFragment extends Fragment {
         }
     }
 
-    public static PageFragment newInstance(int startOffset, MyPagerAdapter adapter) {
+    public static PageFragment newInstance(int startOffset, int adapterID) {
         PageFragment fragment = new PageFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(START_OFFSET, startOffset);
+        bundle.putInt(ADAPTER_ID, adapterID);
         fragment.setArguments(bundle);
-        fragment.adapter = adapter;
-        fragment.dataValid = false;
-        fragment.viewValid = false;
-        fragment.isShown = false;
-        adapter.registerDataSetObserver(fragment.newObserver());
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstance) {
         super.onCreate(savedInstance);
-        this.startOffset = getArguments().getInt(START_OFFSET);
+        startOffset = getArguments().getInt(START_OFFSET);
+        adapter = adapters.get(getArguments().getInt(ADAPTER_ID));
+        adapter.registerDataSetObserver(new Observer());
+        dataValid = false;
+        viewValid = false;
+        isShown = false;
         Log.d("fragment", "page" + (startOffset / ITEMS_PER_PAGE) + " onCreate()");
     }
 

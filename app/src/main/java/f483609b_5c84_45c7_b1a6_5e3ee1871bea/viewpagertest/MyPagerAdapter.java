@@ -13,9 +13,11 @@ import static f483609b_5c84_45c7_b1a6_5e3ee1871bea.viewpagertest.PageFragment.IT
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
     private List<String> itemList = new ArrayList<>();
+    private int myAdapterID;
 
     public MyPagerAdapter(FragmentManager fm) {
         super(fm);
+        myAdapterID = PageFragment.registerAdapter(this);
     }
 
     public void setItemList(List<String> itemList) {
@@ -26,7 +28,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.d("adapter", "getItem(" + position + ")");
-        return PageFragment.newInstance(position * ITEMS_PER_PAGE, this);
+        return PageFragment.newInstance(position * ITEMS_PER_PAGE, myAdapterID);
     }
 
     @Override
