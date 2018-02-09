@@ -39,7 +39,7 @@ public class PageFragment extends Fragment {
         Log.d("fragment", "page" + (startOffset / ITEMS_PER_PAGE) +
                 " displayData() with dataValid = " + dataValid + ", viewValid = " + viewValid);
         if (!dataValid) {
-            items = adapter.getItemData(startOffset);
+            items = adapter != null ? adapter.getItemData(startOffset) : new String[0];
             dataValid = true;
             viewValid = false;
         }
