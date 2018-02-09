@@ -3,6 +3,7 @@ package f483609b_5c84_45c7_b1a6_5e3ee1871bea.viewpagertest;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        Log.d("adapter", "getItem(" + position + ")");
         int baseIndex = Math.max(0, Math.min(position * ITEMS_PER_PAGE, itemList.size()));
         int elementNum = Math.min(itemList.size() - baseIndex, ITEMS_PER_PAGE);
         String[] items = itemList.subList(baseIndex, baseIndex + elementNum)
@@ -32,6 +34,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
+        Log.d("adapter", "getCount() size = " + itemList.size());
         return Math.max(1, (itemList.size() + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE);
     }
 }
