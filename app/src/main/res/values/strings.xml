@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ViewPagerTest</string>
+    <string name="ph_position">pos</string>
+    <string name="ph_value">value</string>
+    <string name="button_insert">insert</string>
+    <string name="invalid_pos">Invalid position.</string>
+    <string name="oor_pos">Position out of range.</string>
 </resources>

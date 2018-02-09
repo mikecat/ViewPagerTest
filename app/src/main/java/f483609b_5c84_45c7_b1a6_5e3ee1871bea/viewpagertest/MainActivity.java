@@ -28,5 +28,28 @@ public class MainActivity extends AppCompatActivity {
         final MyPagerAdapter adapter = new MyPagerAdapter(manager);
         adapter.setItemList(itemList);
         vp.setAdapter(adapter);
+
+        final TextView posView = (TextView)findViewById(R.id.insPosition);
+        final TextView valueView = (TextView)findViewById(R.id.insValue);
+        findViewById(R.id.insButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String posString = posView.getText().toString();
+                String value = valueView.getText().toString();
+                if (posString.equals("")) {
+                    itemList.add(value);
+                } else {
+                    try {
+                        int pos = Integer.parseInt(posString);
+                        itemList.add(pos, value);
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(MainActivity.this, R.string.invalid_pos, Toast.LENGTH_SHORT).show();
+                    } catch (IndexOutOfBoundsException e) {
+                        Toast.makeText(MainActivity.this, R.string.oor_pos, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }
