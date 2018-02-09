@@ -8,8 +8,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import static f483609b_5c84_45c7_b1a6_5e3ee1871bea.viewpagertest.PageFragment.ITEMS_PER_PAGE;
+
 public class MyPagerAdapter extends FragmentPagerAdapter {
-    private final static int ITEMS_PER_PAGE = 3;
 
     private List<String> itemList = new ArrayList<>();
 
@@ -25,16 +26,18 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Log.d("adapter", "getItem(" + position + ")");
-        int baseIndex = Math.max(0, Math.min(position * ITEMS_PER_PAGE, itemList.size()));
-        int elementNum = Math.min(itemList.size() - baseIndex, ITEMS_PER_PAGE);
-        String[] items = itemList.subList(baseIndex, baseIndex + elementNum)
-                .toArray(new String[elementNum]);
-        return PageFragment.newInstance(items);
+        return PageFragment.newInstance(position * ITEMS_PER_PAGE, this);
     }
 
     @Override
     public int getCount() {
         Log.d("adapter", "getCount() size = " + itemList.size());
         return Math.max(1, (itemList.size() + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE);
+    }
+
+    public String[] getItemData(int startOffset) {
+        int elementNum = Math.min(itemList.size() - startOffset, ITEMS_PER_PAGE);
+        return itemList.subList(startOffset, startOffset + elementNum)
+                .toArray(new String[elementNum]);
     }
 }
